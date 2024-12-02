@@ -1,0 +1,649 @@
+﻿Lab 01: Functions, Conditionals, Loops
+
+
+Due: Monday, October 7th, 11:59pm
+
+
+Extra Credit Opportunity
+
+
+You will have the opportunity to receive a 1 point extra credit on that lab if you submit your last attempt early (refer to this section of each lab for the early submission deadline). Note: Each lab is graded out of 10 points, and you could possibly have more than 10 points in one lab.
+
+
+Early Submission Date (lab01): Friday, October 4th, 11:59pm (SD time)
+Preview
+Unlike DSC10, we will not be using any imported packages in the course. We have a diverse background in terms of programming experience. Therefore, we will be having a long but useful lab01 that prepares you to get used to Python built-in methods and some structures you can use in future assignments! Please read every single word in this lab! If you have any questions, please ask on ED Discussion!
+Starter Files
+Download lab01.zip. Inside the archive, you will find starter files for the questions in this lab. You can't import anything to solve the problems. To unzip a file, simply just double-click on the archive in the download folder, and it should populate a lab01.py file. Move the lab01.py to your DSC20 folder manually. 
+Tip: You can comment out all questions first using “Ctrl + /” (Windows) or “Cmd + /” (Mac). Once you finish one question, you can uncomment a new one. This way doctests will give you a cleaner output. 
+Submission
+By the end of this lab, you should submit the lab via Gradescope. You may submit more than once before the deadline; only the final submission will be graded.
+Logistics
+Using Python
+When running a Python file, you can use the options on the command line to inspect your code further. Here are a few that will come in handy. If you want to learn more about other Python command-line options, take a look at the documentation.
+* Disclaimer: If you are using Windows, you may need to type py, rather than python3
+* Using no command-line options will run the code in the file you provide and return you to the command line.
+>>> python3 lab01.py
+* -i: The -i option runs your Python script, then opens an interactive session. In an interactive session, you run Python code line by line and get immediate feedback instead of running an entire file all at once. 
+* To exit, type exit() into the interpreter prompt. You can also use the keyboard shortcut Ctrl-D on Linux/Mac machines or Ctrl-Z Enter on Windows.
+If you edit the Python file while running it interactively, you will need to exit and restart the interpreter in order for those changes to take effect.
+>>> python3 -i lab01.py
+        >>> concat_str_1(['Welcome', 'to', 'DSC', '20!'])
+     'Welcome to DSC 20!'
+
+
+   * Using the interactive mode allows you to test individual doctests and see their output, but you have to type or paste tests one at a time.
+
+
+   * -m doctest: Runs all doctests in a particular file. Doctests are surrounded by triple quotes (""") within functions. Each test consists of >>> followed by some Python code and the expected output. We have provided doctests for you in the starter code, and you may add additional doctests if you wish. 
+>>> python3 -m doctest lab01.py
+return and print inside a function
+Most functions that you define will contain a return statement. The return statement will give the result of some computation back to the caller of the function and exit the function. For example, the function square below takes in a number x and returns its square.
+def square(x):
+    """
+    >>> square(4)
+    16
+    """
+    return x * x
+When Python executes a return statement, the function terminates immediately. If Python reaches the end of the function body without executing a return statement, it will automatically return None.
+In contrast, the print function is used to display values in the Terminal. This can lead to some confusion between print and return because calling a function in the Python interpreter will print out the function's return value.
+However, unlike a return statement, when Python evaluates a print expression, the function does not terminate immediately.
+
+
+
+
+def what_prints():
+    print('Hello World!')
+    return 'Exiting this function.'
+    print('DSC20 is awesome!')
+
+
+>>> what_prints()
+Hello World!
+'Exiting this function.'
+Notice also that print will display text without the quotes, but return will preserve the quotes. We will discuss the reason later in the quarter. 
+Error Messages
+By now, you've probably seen a couple of error messages. They might look intimidating, but error messages are very helpful for debugging code. The following are some common types of errors:
+ Error Types
+	 Descriptions
+	 SyntaxError
+	Contained improper syntax (e.g. missing a colon after an if statement or forgetting to close parentheses/quotes)
+	 IndentationError
+	Contained improper indentation (e.g. inconsistent indentation of a function body)
+	 TypeError
+	Attempted operation on incompatible types (e.g. trying to add a function and a number) or called function with the wrong number of arguments
+	 ZeroDivisionError
+	Attempted division by zero
+	Using these descriptions of error messages, you should be able to get a better idea of what went wrong with your code. If you run into error messages, try to identify the problem before asking for help. You can often Google unfamiliar error messages to see if others have made similar mistakes to help you debug.
+For example:
+>>> square(3, 3)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: square() takes 1 positional argument but 2 were given
+Note:
+      * The last line of an error message tells us the type of the error. In the example above, we have a TypeError.
+      * The error message tells us what we did wrong -- we gave square 2 arguments when it can only take in 1 argument. In general, the last line is the most helpful.
+      * The second to last line of the error message tells us on which line the error occurred. This helps us track down the error. In the example above, TypeError occurred at line 1.
+Required Questions. Coding Practice
+DO NOT IMPORT ANY PACKAGES.
+
+
+
+
+This quarter labs and homeworks will follow (more or less) the theme: Simulating a business. 
+
+
+
+
+Question 1:
+You and your friends have decided to rent an office for your new business. However, some office buildings only rent to people who are at least 23 years old.
+Write a function that takes a list of ages (as positive integers) and returns a boolean indicating whether your team has at least one member who is 23 or older.
+def team_member_age(ages):
+        """
+        Checks whether at least one team member is 23 or older.
+        ---
+        Parameters: 
+        lst: a list of positive integers, might be empty
+        ---
+        Returns True if at least one driver is 23 or older,
+        False otherwise
+
+
+        >>> team_member_age([19, 22, 21])
+        False
+        >>> team_member_age([19, 23, 15, 27])
+        True
+        >>> team_member_age([])
+        False
+        """
+
+
+Question 2:
+You need to find out how many team members are 23 years old or older so that you can plan your rent better.
+Write a function that takes a list of ages (positive integers) and returns the number of members who are 23 or older.
+def counter_23_and_over(ages):
+        """
+        Counts how many people aged 23 or older are in the given list. 
+        ---
+        Parameters: 
+            lst: a list of positive integers, might be empty
+        ---
+        Returns:
+         The number of people whose age is 23 or older.
+
+
+        >>> counter_23_and_over([])
+        0
+        >>> counter_23_and_over([12, 15])
+        0
+        >>> counter_23_and_over([12, 23, 34])
+        2
+        >>> counter_23_and_over([40, 15, 22])
+        1
+        """
+
+
+Question 3:
+Now your team needs to decide on a name for your business! This isn’t easy, so it may take several attempts to come up with a good one.
+Your first idea is to take someone’s full name (first and last) and then use the last_name and the last letter of the first_name, separated by a space.
+Write a function that takes two parameters as strings: first name and last name. The function should return a new string by combining (concatenating) these two parameters in the specified format. Check the doctests for the exact output.
+Assumption: The first_name is never empty.
+
+
+def company_name_one(first_name, last_name):
+        """
+        Concatenates the string parameters into the output string. 
+        ---
+        Parameters:
+            first_name: first name, as a string
+            last_name: last name, as a string
+        ---
+        Returns:
+          A new string with the company’s name. 
+
+
+        >>> company_name_one("Marina", "Langlois")
+        'Company name is Langlois a'
+        >>> company_name_one("Marina", "")
+        'Company name is  a'
+        >>> company_name_one("THE", "best")
+        'Company name is best E'
+        """
+
+
+
+
+Question 4:
+Other team members were unhappy that only one person’s name was used to create the title. So, you came up with another idea.
+Write a function that takes a list of names as strings. The function should create a new string by adding the first and last characters of each name. If a name has only one character, add a space as the second character.
+Assumption: There are no empty strings in the given list.
+def company_name_two(names):
+        """
+        Creates the name for the team by putting together first and last
+        characters of each name. Adds a space if the input only has one
+character. 
+        ---
+        Parameters:
+            names: list of names, as strings
+        ---
+        Returns:
+    A team name, as a string
+
+
+        >>> names = ["Marina", "J", "Mike"]
+        >>> company_name_two(names)
+        'MaJ Me'
+        >>> names = ["Sheldon", "Leonard", "Raj", "Howard"]
+        >>> company_name_two(names)
+        'SnLdRjHd'
+        >>> names = ["Y", "J", "B"]
+        >>> company_name_two(names)
+        'Y J B '
+        """
+
+
+
+
+Question 5:
+Having a slogan can be a great way to attract customers to your new business!
+Write a function that takes two inputs: a list of words and a single character as a separator. The function should return a string that joins the words together, separated by the specified character. If the list is empty, it should return an empty string.
+Note: In DSC 20, you need to learn how to read Python’s documentation for built-in functions. For example, your task is to convert a list of words (as strings) into a sentence, adding a separator between each pair of words. If the list is empty, return an empty string. (Notice that the provided doctest doesn’t test this edge case, so it’s always recommended to add your own doctests to account for such cases. The given doctests may not be sufficient!)
+Hint: There are two usual ways to do this: 
+      * One is through string concatenation, which starts with an empty string, and concatenates (adds) each string in the list using a loop. 
+      * Another approach is to use the join() function. 
+
+
+You should use string concatenation in part 1 (new_slogan_concat) and join() function in part 2 (new_slogan_join).
+
+
+Question 5.1:
+
+
+def new_slogan_concat(words, separator):
+        """
+        Creates a slogan from the words, adding a separator between them. 
+        ---
+        Parameters:
+            words: list of words, as strings
+            separator: single character 
+        ---
+        Returns:
+         A slogan as a string
+
+
+        >>> words = ["Come", "and", "see"]
+        >>> new_slogan_concat(words, " ")
+        Come and see'
+
+
+        >>> words = ["Work", "hard", "nap", "harder"]
+        >>> new_slogan_concat(words, ".")
+        'Work.hard.nap.harder'
+        """
+
+
+Question 5.2:
+
+
+def new_slogan_join(words, separator):
+        """
+        Creates a slogan from the words, adding a separator between them. 
+        ---
+        Parameters:
+            words: list of words, as strings
+            separator: single character 
+        ---
+        Returns:
+         A slogan as a string
+
+
+        >>> words = ["Come", "and", "see"]
+        >>> new_slogan_join(words, " ")
+        Come and see'
+
+
+        >>> words = ["Work", "hard", "nap", "harder"]
+        >>> new_slogan_join(words, ".")
+        'Work.hard.nap.harder'
+        """
+
+
+Question 6:
+
+
+You've decided to create a visual design for your business's brand. While you're still brainstorming ideas, it's time to get some practice.
+
+
+Question 6.1:
+Write a function that takes two parameters: a symbol (as a character) and the number of repetitions (as a positive integer). The function should return a string consisting of the given symbol repeated the specified number of times.
+Hint: In Python, you can multiply not only numbers but also strings! For example, try multiplying the string 'b' by 6 and see what happens.
+def idea_simple_drawing(symbol, repeat):
+        """
+        Creates a string of symbols 
+        ---
+        Parameters:
+            symbol: a single character
+            repeat: positive integer
+        ---
+        Returns:
+          A string of symbols repeated a given number of times.
+
+
+        >>> idea_simple_drawing("-", 4)
+        '----'
+        >>> idea_simple_drawing("+", 5)
+        '+++++'
+>>> idea_simple_drawing("", 2)
+''
+        """
+
+
+Question 6.2:
+You realize that the pattern is far too simple, so let’s step it up a notch.
+Write a function that takes two parameters:
+      1. A list of symbols (as characters)
+      2. A list of repetitions (as positive integers)
+You can assume that the lengths of these lists are the same.
+Your function should return a new string that contains characters from the symbols list, each repeated the corresponding number of times specified in the repetitions list.
+Example:
+
+
+Input
+	Output
+	Reason
+	['-', '+'], [4, 5]
+	----+++++
+	‘-’ is repeated 4 times, 
+‘+’ is repeated 5 times 
+
+
+and everything is joined together.
+	
+
+
+
+def idea_longer_drawing(symbols, repeats):
+        """
+        Creates a string of symbols
+        ---
+        Parameters:
+        symbols: a list of single characters
+        repeat: a list of positive integers, has the same length
+        as symbols list
+        ---
+        Returns a string of symbols repeated a corresponding number of
+        times.
+
+
+        >>> idea_longer_drawing(['-', '+'], [4, 5])
+        '----+++++'
+        >>> idea_longer_drawing(['dsc', '20'], [1, 5])
+        'dsc2020202020'
+        >>> idea_longer_drawing([], [])
+        ''
+        """
+
+
+Question 7:
+You also need to find a crew to remodel your main office. There are many options on Yelp, including their ratings!
+Each company has a rating that ranges from 1 to 5, inclusive. You will receive a quote from a company if it is rated 3.75 or higher. For companies with ratings lower than 3.75, you will consider them to have a rating of 0.
+Question 7.1:
+
+
+Write a function that takes a list of actual ratings and calculates the average rating for the given list according to the definition provided above. Round the result to two decimal places and return your answer.
+
+
+Hint: use round() built-in function. 
+
+
+
+
+Input
+	Output
+	Reason
+	[5, 5, 1]
+	3.33
+	Two companies have ratings greater than 5 so we keep their original ratings. 
+One company is below 5, so it gets a value of 0. 
+The average is (5 + 5 + 0)/3 = 3.333…
+Rounded to the second decimal place is 3.33
+	
+
+
+
+def average_rating(ratings):
+        """
+        Finds average where numbers lower than 3.75 get a value of a 0.
+        ---
+        Parameters:
+                ratings: list of integers ranging from 1 to 5
+        ---
+        Returns:
+The average rounded to the second decimal place
+
+
+        >>> average_rating([5, 5, 5])
+        5.0
+        >>> average_rating([5, 5, 4])
+        4.67
+        >>> average_rating([4, 2, 1])
+        1.33
+        """
+
+
+
+
+
+
+Question 7.2:
+Once you have tested your function with a single list of ratings, you can use it to solve a similar problem. This time, you are given a list of lists, where each sublist represents a set of companies you may consider hiring.
+Write a function that takes a list of lists and returns the sublist with the highest average rating. In the case of an empty list, return -1
+Hints:
+      * Question 7.1 might be helpful.
+      * You might need to declare an empty list.
+      * In order to add values to a list, use function append. Here is a link to the documentation: link
+      * Function max() might be helpful
+
+
+def average_rating_lists(ratings):
+"""
+Finds the highest average among the inner lists.
+--
+Parameters:
+        ratings: a list of list(s) of numbers ranging from 1 to 5
+--
+Returns:
+        The highest average rounded to two decimal places.
+
+
+>>> ratings = [[1, 5, 5], [5, 5, 5]]
+>>> average_rating_lists(ratings)
+5.0
+
+
+>>> ratings = [[2.56, 4.76, 3.12], [3.1, 4.5, 5], [1.4, 4.54]]
+>>> average_rating_lists(ratings)
+3.17
+
+
+>>> average_rating_lists([])
+-1
+"""
+
+
+Question 7.3:
+
+
+Now let’s solve a very similar problem, but this time your function needs to return the index of the largest rating. If there is a tie, return the index of the first occurrence of the largest rating.
+
+
+Hint:
+      * index() might be helpful.
+
+
+def average_rating_lists_index(ratings):
+"""
+Finds the index of the list with the highest average. If there are 
+multiple lists with the same average, return the index of the list 
+that occurs first.
+–
+Parameters:
+        ratings: a list of list(s) of numbers ranging from 1 to 10
+--
+Returns:
+        The index of the list with the highest average
+
+
+>>> ratings = [[1, 5, 5], [5, 5, 5]]
+>>> average_rating_lists_index(ratings)
+1
+
+
+>>> ratings = [[2.56, 4.76, 3.12], [1.4, 4.54], [3.1, 4.5, 5]]
+>>> average_rating_lists_index(ratings)
+2
+
+
+>>> average_rating_lists_index([])
+-1
+"""
+
+
+Question 7.4:
+Finally, let’s put all the pieces together. We will assign a name to each sublist, and now we want to output the name of the team with the highest average rating. In case of a tie, return the name of the list that occurs first. 
+If the input list is empty, return an empty string.
+Note that this time our function takes two parameters:
+      1. A list of lists, where each sublist contains various ratings from 1 to 5.
+      2. A list of team names (as strings).
+You can assume that the lengths of these lists are the same.
+Note: Reuse your solution from the previous problem by calling the function; do not copy and paste the same code.
+ def average_rating_lists_names(ratings, names):
+"""
+>>> ratings = [[1, 5, 5], [5, 5, 5]]
+>>> names = ["team1", "team2"]
+>>> average_rating_lists_names(ratings, names)
+'team2'
+
+
+>>> ratings = [[2.56, 4.76, 3.12], [1.4, 4.54], [3.1, 4.5, 5]]
+>>> names = ["team1", "team2", "team3"]
+>>> average_rating_lists_names(ratings, names)
+'team3'
+
+
+>>> average_rating_lists_names([])
+''
+"""
+
+
+Question 8:
+Once you have chosen the team to handle the remodeling, they will ask you to create an account. As always, every account should be password-protected.
+Write a function that takes three parameters:
+      * A string
+      * A positive integer
+      * A boolean
+Rules:
+      * If one or more inputs do not satisfy the specified type, return 'ERROR!' (as a string).
+      * Reverse the given string.
+      * If the number is even, make it odd by adding 1.
+      * If the number is odd, make it even by multiplying it by 2.
+      * Flip the value of the boolean parameter.
+      * Assume the number is positive.
+Then, combine all these components into a string and return it.
+
+
+Input
+	Output
+	Reason
+	3, "is", True
+	'ERROR!'
+	The first parameter is not an integer
+	"car", 21, True
+	'rac42False'
+	“car” is reversed: “rac”
+21 is odd, we multiply it by 2
+True become False
+Then ‘rac’, 42, False were put in a string
+	
+
+
+
+def new_password(text, number, boolean):
+    """
+        Creates a password based on the given parameters: 
+        text is reversed, numbers becomes either even or odd, boolean
+        value is flipped
+        ---
+        Parameters:
+        text: a string
+        number: an integer
+        boolean: a boolean value 
+        ---
+        Returns:
+Password by concatenating altered components.
+
+
+    >>> new_password(3, "is", True)
+    'ERROR!'
+    >>> new_password("paint", "is", False)
+    'ERROR!'
+    >>> new_password("paint", 40, 20)
+    'ERROR!'
+    >>> new_password("paint", 18, False)
+    'tniap19True'
+    >>> new_password("paint", 21, True)
+    'tniap42False'
+    """
+
+
+Hint: 
+      * Look up: “How to reverse a string in Python”
+      * Loop up: “How to convert an integer to a string”
+
+
+
+
+Question 9:
+All the members of your team chose a color for the front door and recorded their choices in a list. Your boss then selected every color that contains exactly 5 letters.
+Write a function that takes a list of colors (as strings) and returns a new list that contains only the colors with 5 letters. It is acceptable for the new list to include repetitions.
+Requirements:
+      * Do not use list comprehension or any other shortcuts; please use only a simple for-loop.
+Hints:
+      * First, you need to declare an empty list.
+      * In order to add values to a list, use function append. Here is a link to the documentation: link
+
+
+def colors_with_5(all_colors):
+"""
+>>> all_colors = ["brown", "red", "green"]
+>>> colors_with_5(all_colors)
+['brown', 'green']
+>>> all_colors = []
+>>> colors_with_5(all_colors)
+[]
+>>> all_colors = ["red", "blue", "orange", "teal"]
+>>> colors_with_5(all_colors)
+[]
+"""
+
+
+
+
+Question 10:
+The company sent you a string of prices for their work, with each number separated by spaces. You’d like to determine the total cost.
+Write a function that takes this string of numbers and returns the sum of all these numbers.
+Requirements:
+      * Do not use list comprehension or any other shortcuts; please use only a simple for-loop.
+Note: 
+      * There is another very handy method: .split().  It allows you to split a string into a list. Here is a link to the example: link
+
+
+Assumption:
+      * Every number in a string is an integer.
+
+
+def total_for_painting(prices):
+"""
+Calculates the total price of paintings given a string of integers.
+--
+Parameters:
+        prices: a string of integers
+--
+Returns:
+        An integer representing the total of the integers
+>>> prices = "10 20 30 3"
+>>> total_for_painting(prices)
+63
+
+
+>>> prices = "1 2 3"
+>>> total_for_paiting(prices)
+6
+
+
+>>> prices = ""
+>>> total_for_painting(prices)
+0
+    """
+
+
+
+
+Congratulations! You are done with Lab01 :)
+
+
+
+
+Submission
+You need to submit the lab via Gradescope. You may submit more than once before the deadline; only the final submission will be graded.
+Follow these steps to submit your work.
+
+
+Important Notes:
+      1. You may submit more than once before the deadline; only the final submission will be graded;
+      2. We will be grading this lab solely based on hidden tests, so you should test your code thoroughly by writing more test cases;
+      3. Unlike lab00, you should expect to see "-/10.0". You will see your score when the grades are released;
+      4. You should wait for the Autograder to finish running before leaving the site to ensure that the tests are properly run;
+      5. If your autograder fails to run, try to consult the Gradescope Common Errors section on the course website before making an ED post;
+      6. If you have any other questions, please post to ED.
+Warning: If you used Virtual Studio Code as your editor, please double check if there are weird import statements that you don’t recognize before submitting. Make sure to remove these as they will fail Gradescope runs!

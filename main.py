@@ -7,7 +7,7 @@ os.environ["TOKENIZERS_PARALLELISM"] = "false"
 openai.api_key = my_sk
 # Path to folder containing .txt files
 DOCUMENTS_FOLDER = "./DSC20 Assignments"
-TEST_QUERY = "Give me one really creative question for a final exam about recursion"
+#TEST_QUERY = "Give me one really creative question for a final exam about recursion"
 
 # Load documents from .txt files
 def load_documents(folder_path):
@@ -40,11 +40,9 @@ def generate_question(top_k_documents, model= "gpt-4o-mini"):
     return response.choices[0].message.content
 
 if __name__ == "__main__":
+    TEST_QUERY = input("Enter your query: ")
     ColBERT = ColBERT()
     docs, _ = load_documents(DOCUMENTS_FOLDER)
     ranked_docs = ColBERT.rank_documents(TEST_QUERY, docs)
     exam_question = generate_question(ranked_docs)
     print(exam_question)
-
-
-

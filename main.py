@@ -24,7 +24,7 @@ def load_documents(folder_path):
 def generate_question(top_k_documents, model= "gpt-4o-mini"):
     top_docs = [doc for doc, _ in top_k_documents]
     context = "\n".join(top_docs)
-    prompt = f"{TEST_QUERY}:\n\n{context}"
+    prompt = f"{QUERY}:\n\n{context}"
 
     response = openai.chat.completions.create(
         model= model,
@@ -44,5 +44,5 @@ if __name__ == "__main__":
     ColBERT = ColBERT()
     docs, _ = load_documents(DOCUMENTS_FOLDER)
     ranked_docs = ColBERT.rank_documents(QUERY, docs)
-    exam_question = generate_question(ranked_docs)
-    print(exam_question)
+    question = generate_question(ranked_docs)
+    print(question)

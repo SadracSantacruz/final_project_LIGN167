@@ -8,7 +8,15 @@ os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
 openai.api_key = my_sk
 
-DOCUMENTS_FOLDER = "./DSC20 Assignments"
+DOCUMENTS_FOLDER = os.path.join(os.path.dirname(__file__), "DSC20 Assignments")
+
+if not os.path.exists(DOCUMENTS_FOLDER):
+    print(f"Error: Path does not exist -> {DOCUMENTS_FOLDER}")
+    exit(1)
+else:
+    print(f"Path exists: {DOCUMENTS_FOLDER}")
+
+
 TEST_QUERY = "Give me one really creative question for a final exam about recursion"
 
 # Load documents from .txt files
@@ -43,7 +51,7 @@ def generate_question(top_k_documents, model="gpt-4", max_docs=5):
     return response.choices[0].message.content
 
 # Generate a PDF file from the question
-def generate_pdf(question, output_path="../public/output.pdf"):
+def generate_pdf(question, output_path = "output.pdf"):
     pdf = FPDF()
     pdf.add_page()
     pdf.set_font("Arial", size=12)
@@ -62,7 +70,7 @@ def generate_pdf(question, output_path="../public/output.pdf"):
     print(f"PDF generated and saved to {output_path}")
 
 if __name__ == "__main__":
-    QUERY = os.getenv("QUERY") 
+    QUERY = os.getenv("QUERY", "Default query text")
     # QUERY = input("Input your Query: ")
     # Initialize ColBERT
     ColBERT_instance = ColBERT()

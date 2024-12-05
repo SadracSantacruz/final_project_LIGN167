@@ -35,13 +35,18 @@ app.post("/run-script", (req, res) => {
     (error, stdout, stderr) => {
       if (error) {
         console.error(`Error: ${error.message}`);
-        return res.status(500).json({ error: "Failed to execute script" });
+        console.error(`Stderr: ${stderr}`);
+        return res.status(500).json({
+          error: "Failed to execute script",
+          details: error.message,
+          stderr,
+        });
       }
       if (stderr) {
         console.error(`Stderr: ${stderr}`);
       }
       console.log(`Stdout: ${stdout}`);
-      res.json({ message: "Script executed successfully" });
+      res.json({ message: "Script executed successfully", output: stdout });
     }
   );
 });

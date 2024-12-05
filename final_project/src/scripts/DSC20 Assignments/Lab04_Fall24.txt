@@ -1,0 +1,315 @@
+﻿Lab 04: Lambda Functions, Maps, and Filters
+Total Points: 10 (Correctness) + 1 extra credit (optional)
+Due: Monday, October 28th, 11:59pm
+
+
+Starter Files
+Download lab04.zip. Inside the archive, you will find starter files for the questions in this lab. You can't import anything to solve the problems.
+Extra Credit Opportunity
+
+
+Starting from lab02, you will have the opportunity to receive a 1 point extra credit on that lab if you submit your last attempt early (refer to this section of each lab for the early submission deadline). Note: Each lab is graded out of 10 points, and you could possibly have more than 10 points in one lab.
+
+
+Early Submission Date (lab04): Thursday, October 24th, 11:59pm (SD time)
+
+
+Testing
+After finishing each question, run the file with the following command-line options to avoid compile time errors and test the correctness of your implementation:
+* No options: >>> python3 lab04.py
+* Interactive mode:  >>> python3 -i lab04.py
+* Doctest (Recommended): >>> python3 -m doctest lab04.py
+For Windows users, please use py or python instead of python3.
+
+
+Important Requirements and Notes
+
+
+1. DO NOT IMPORT ANY PACKAGES.
+2. It may be useful to add doctests when the given doctests do not cover all cases to avoid losing points from the Autograder/any hidden tests, but you are not required to add doctests in the labs.
+3. Style/asserts are not required or graded on any labs, but it’s recommended that you also follow the style guide for clean code. Method descriptions are provided in this lab.
+4. You may assume all inputs are valid.
+
+
+Required Questions
+Building a business from the ground up isn't easy, so it's time to relax and bond!
+
+
+Question 1:
+
+
+But first, we need to practice!
+Question 1.1:
+
+
+Create a function that takes:
+
+
+*  a list of integers and 
+* an integer, mult_factor. 
+
+
+Your function should return a new list where each element in the original list is multiplied by mult_factor
+
+
+Requirement: You cannot NOT use loops and list comprehension for this question. Instead, you must use lambda and map functions. There are no restrictions on the number of lines, but our solution is one line.
+
+
+def problem_1(int_lst, mult_factor):
+    """
+    >>> problem_1([1, 3, 5], 3)
+    [3, 9, 15]
+    >>> problem_1([1, 3, 5], 0)
+    [0, 0, 0]
+    >>> problem_1([], -10)
+    []
+    """ 
+
+
+Question 1.2:
+
+
+Create a function that takes:
+* a list of integers and 
+* another positive integer, factor. 
+
+
+Your function should return a new list, where each element from a given list has a given factor.
+
+
+Requirement: You cannot NOT use loops and list comprehension for this question. Instead, you must use lambda and filter functions. There are no restrictions on the number of lines, but our solution is one line.
+
+
+def problem_2(int_lst, factor):
+    """
+    >>> problem_2([1, 3, 5], 3)
+    [3]
+    >>> problem_2([1, 3, 5], 1)
+    [1, 3, 5]
+    >>> problem_2([], 10)
+    []
+    >>> problem_2([1, 3, 4, 6, 5], 2)
+    [4, 6]
+    """
+
+
+Question 1.3:
+
+
+Solve a similar question as above using a map function.
+
+
+First, try to replicate exactly the same doctests as in Question 1.2. (Make sure you understand why it is not possible).
+
+
+Now write a function that takes:
+* a list of integers and 
+* another positive integer, factor. 
+
+
+Your function should return a list, where each element from a given list has a given factor, and if that’s not the case, replace it with None.
+
+
+Requirement: You cannot NOT use loops and list comprehension for this question. Instead, you must use lambda and map functions. There are no restrictions on the number of lines, but our solution is one line.
+
+
+def problem_3(int_lst, factor):
+    """
+    >>> problem_3([1, 3, 5], 3)
+    [None, 3, None]
+    >>> problem_3([1, 3, 5], 1)
+    [1, 3, 5]
+    >>> problem_3([], 10)
+    []
+    >>> problem_3([1, 3, 4, 6, 5], 2)
+    [None, None, 4, 6, None]
+    """
+
+
+Question 1.4:
+
+
+Let's address the None issue in Question 1.3. Write a function that takes:
+*  a list of integers and/or None values (similar to the output format from the previous question) 
+
+
+Your function should return a list that contains only the integers
+
+
+Requirement: You cannot NOT use loops and list comprehension for this question. Instead, you must use lambda and filter functions. There are no restrictions on the number of lines, but our solution is one line.
+
+
+Note: Take a look at this documentation and how “truthy” values are defined. Can you use filter(None, lst) to achieve this?
+
+
+def problem_4(lst):
+    """
+    >>> problem_4([None, 3, None])
+    [3]
+    >>> problem_4([None, None, 4, 6, None])
+    [4, 6]
+    >>> problem_4([0, 1, 2, 3, 4, None])
+    [0, 1, 2, 3, 4]
+    >>> problem_4([])
+    []
+    """
+
+
+Important Message: After Questions 1.2-1.4, you should be convinced that it’s best to directly use filter to remove elements according to a condition.
+
+
+Let’s make the questions a bit more meaningful 🙂
+
+
+Question 2:
+
+
+The group split into teams and is ready to compete. 
+
+
+Question 2.1:
+
+
+Write a function that takes:
+* a dictionary where 
+   * the keys are strings (team names) and 
+   * the values are lists of strings (representing team members). 
+* a non-negative integer, limit, which specifies the allowed team size. 
+
+
+Your function should return a list of team names that have enough members to practice, or the string 'Need more players' if a team size does not meet the required size.
+
+
+Requirement: You cannot NOT use loops and list comprehension for this question. Instead, you must use lambda, map and/or filter functions. There are no restrictions on the number of lines, but our solution is one line. Do not reuse other functions.
+
+
+def forming_teams_1(teams, limit):
+    """
+    >>> teams = {"team1": ["A", "B", "C"], "team2": ["D", "E"]}
+    >>> forming_teams_1(teams, 3)
+    ['team1', 'Need more players']
+    >>> forming_teams_1(teams, 4)
+    ['Need more players', 'Need more players']
+    >>> forming_teams_1(teams, 0)
+    ['team1', 'team2']
+    >>> forming_teams_1({}, 3)
+    []
+    """ 
+
+
+Question 2.2:
+
+
+Write a function that takes:
+* a dictionary where 
+   * the keys are strings (team names) and 
+   * the values are lists of strings (representing team members). 
+* a non-negative integer, limit, which specifies the allowed team size.  
+
+
+Your function should return a list containing only the keys of the teams that have enough members to practice.
+
+
+Requirement: You cannot NOT use loops and list comprehension for this question. Instead, you must use lambda, map and/or filter functions. There are no restrictions on the number of lines, but our solution is one line. Do not reuse other functions.
+
+
+def forming_teams_2(teams, limit):
+    """
+    >>> teams = {"team1": ["A", "B", "C"], "team2": ["D", "E"]}
+    >>> forming_teams_2(teams, 3)
+    ['team1']
+    >>> forming_teams_2(teams, 4)
+    []
+    >>> forming_teams_2(teams, 0)
+    ['team1', 'team2']
+    >>> forming_teams_2({}, 3)
+    []
+    """
+
+
+Question 3:
+
+
+After the practice, all teams received their scores, but only a few will be allowed to advance to the next rounds.
+Question 3.1:
+Write a function that takes:
+*  a dictionary where 
+   * the keys are strings (team names) and 
+   * the values are integers (the team's corresponding score). 
+* an integer representing the minimum score required to advance.
+Your function should return a list of tuples: each tuple should contain the name of a team that advances to the next round as the first element, and their score multiplied by 25 as the second element.
+
+
+Requirement: You cannot NOT use loops and list comprehension for this question. Instead, you must use lambda, map and/or filter functions. There are no restrictions on the number of lines, but there exists a one-line solution.
+
+
+Hint: You may need a nested map and/or filter.
+
+
+def next_round_1(teams, threshold):
+    """
+    >>> next_round_1({"team1": 10, "team2": 20}, 10)
+    [('team1', 250), ('team2', 500)]
+    >>> next_round_1({"team1": 36, "team2": 4}, 10)
+    [('team1', 900)]
+    >>> next_round_1({"team1": 5, "team2": 14}, 20)
+    []
+    >>> next_round_1({}, 3)
+    []
+    """
+
+Question 3.2:
+Now, all teams have received their list of scores. Write a function that takes:
+*  a dictionary where 
+   * the keys are strings (team names) and 
+   * the values are lists of integers (the team's corresponding scores). 
+* an integer representing the score required to advance.
+Your function should return a list of tuples: each tuple should contain the name of a team that advances to the next round as the first element, and the number of their scores that meet or exceed the required threshold as the second element.
+
+
+Requirement: You cannot NOT use loops and list comprehension for this question. Instead, you must use lambda, map and/or filter functions. There are no restrictions on the number of lines, but there exists a one-line solution.
+
+
+Hint: You may need a nested map and/or filter.
+
+
+def next_round_2(teams, threshold):
+    """
+    >>> next_round_2({"team1": [5, 10, 15], "team2": [20]}, 10)
+    [('team1', 2), ('team2', 1)]
+    >>> next_round_2({"team1": [], "team2": [36, 4, 20, 0]}, 10)
+    [('team1', 0), ('team2', 2)]
+    >>> next_round_2({}, 3)
+    []
+    """
+
+
+Question 3.3:
+
+
+The soccer tournament organizers recorded the first-round results for each team as strings, but since the data was entered manually, it needs to be standardized. The valid strings indicating that a team has advanced to the next round are: 'qualified', 'advanced', and 'winner' (all lowercase and case-sensitive).
+Write a function that takes two lists of strings, teams (team names) and results (the result for each team), both of equal length. 
+The function should pair each team with its corresponding result and return a list of tuples for only the teams that have advanced to the next round. In each tuple, the first element should be the team's name, and the second element should be their result, both as strings.
+
+
+Requirement: You cannot NOT use loops and list comprehension for this question. Instead, you must use lambda, map and/or filter functions. There are no restrictions on the number of lines, but there exists a one-line solution.
+
+
+Hint: You may need a nested map and/or filter.
+
+
+def next_round_3(teams, results):
+    """
+    >>> next_round_3(['team1', 'team2', 'team3'], ['qualified', 'out', 'winner'])
+    [('team1', 'qualified'), ('team3', 'winner')]
+    >>> next_round_3(['team1', 'team2'], ['eliminated', 'out'])
+    []
+    >>> next_round_3(['team1', 'team2'], ['eliminated', 'advanced'])
+    [('team2', 'advanced')]
+    >>> next_round_3([], [])
+    []
+    """
+
+
+Submission
+Please submit the homework via Gradescope. You may submit more than once before the deadline, and only the final submission will be graded. Please refer to the Gradescope FAQ if you have any issues with your submission.

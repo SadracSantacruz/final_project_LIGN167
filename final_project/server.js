@@ -52,7 +52,7 @@ app.post("/run-script", (req, res) => {
 });
 
 // Serve the PDF
-app.use("/public", express.static(path.join(__dirname, "public")));
+app.use("/public", express.static(path.join(__dirname, "src/scripts")));
 
 // Start the server
 const PORT = 8000;

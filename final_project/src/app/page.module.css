@@ -22,7 +22,7 @@ html {
   font-size: 3rem;
   font-weight: bold;
   margin-bottom: 40px;
-  color: #333;
+  color: #f9fafb;
   text-align: center;
 }
 
@@ -81,7 +81,7 @@ html {
   height: 120px;
   padding: 15px;
   font-size: 1rem;
-  border: 1px solid #ccc;
+  border: 1px solid #ffffff;
   border-radius: 8px;
   resize: none;
   margin-bottom: 10px;

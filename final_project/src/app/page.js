@@ -4,6 +4,7 @@ import styles from "./page.module.css";
 import Link from "next/link";
 import { useState } from "react";
 import Image from "next/image";
+import backgroundImage from "../../public/classroom.jpg";
 
 export default function HomePage() {
   const [prompt, setPrompt] = useState("");
@@ -43,7 +44,15 @@ export default function HomePage() {
   };
 
   return (
-    <div className={styles.container}>
+    <div
+      style={{
+        backgroundImage: `url('/classroom.jpg')`, // Use the public path here
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        height: "100vh", // Ensure full page height
+      }}
+      className={styles.container}
+    >
       <h1 className={styles.title}>Assignment Generator</h1>
 
       <div className={styles.mainContent}>
@@ -61,6 +70,12 @@ export default function HomePage() {
               Our model analyzes assignment topics to generate creative tasks.
               Transform input ideas into structured assignments. Generate
               personalized PDFs for educational purposes.
+            </p>
+            <br></br>
+            <p>
+              <b>Side note: </b>
+              This version of our project can only retrieve DSC 20 (Data Science
+              20) Assignments.
             </p>
           </div>
         </div>
@@ -89,7 +104,7 @@ export default function HomePage() {
 
           {pdfGenerated && (
             <a
-              href="/public/output.pdf"
+              href="http://localhost:8000/public/output.pdf"
               target="_blank"
               rel="noopener noreferrer"
             >

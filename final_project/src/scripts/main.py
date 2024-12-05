@@ -17,7 +17,7 @@ else:
     print(f"Path exists: {DOCUMENTS_FOLDER}")
 
 
-TEST_QUERY = "Give me one really creative question for a final exam about recursion"
+# TEST_QUERY = "Give me one really creative question for a final exam about recursion"
 
 # Load documents from .txt files
 def load_documents(folder_path):
@@ -32,13 +32,13 @@ def load_documents(folder_path):
     return documents, file_paths
 
 # Generate a creative question using OpenAI
-def generate_question(top_k_documents, model="gpt-4", max_docs=5):
+def generate_question(top_k_documents, model="gpt-4o-mini", max_docs=5):
     # Limit the number of top-ranked documents
     top_docs = [doc for doc, _ in top_k_documents[:max_docs]]
     context = "\n".join(top_docs)
 
     # Truncate context to avoid exceeding token limits
-    prompt = f"{TEST_QUERY}:\n\n{context[:3000]}"
+    prompt = f"{QUERY}:\n\n{context}"
 
     response = openai.chat.completions.create(
         model=model,
@@ -51,14 +51,15 @@ def generate_question(top_k_documents, model="gpt-4", max_docs=5):
     return response.choices[0].message.content
 
 # Generate a PDF file from the question
-def generate_pdf(question, output_path = "output.pdf"):
+def generate_pdf(question, output_path = os.path.join(os.path.dirname(__file__), "output.pdf")
+):
     pdf = FPDF()
     pdf.add_page()
     pdf.set_font("Arial", size=12)
 
     # Add title
     pdf.set_font("Arial", "B", size=16)
-    pdf.cell(0, 10, "Generated Final Exam Question", ln=True, align="C")
+    pdf.cell(0, 10, "Generated Document", ln=True, align="C")
     pdf.ln(10)  # Add a line break
 
     # Add the question content

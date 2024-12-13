@@ -1,95 +1,118 @@
-import Image from "next/image";
+"use client";
+
 import styles from "./page.module.css";
+import Link from "next/link";
+import { useState } from "react";
+import Image from "next/image";
+import backgroundImage from "../../public/classroom.jpg";
 
-export default function Home() {
+export default function HomePage() {
+  const [prompt, setPrompt] = useState("");
+  const [responseMessage, setResponseMessage] = useState(null);
+  const [pdfGenerated, setPdfGenerated] = useState(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      console.log("Sending query to backend:", prompt);
+
+      // Trigger the Python script
+      const response = await fetch("http://localhost:8000/run-script", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ query: prompt }),
+      });
+
+      if (!response.ok) {
+        console.error(
+          "Failed to execute script. Response status:",
+          response.status
+        );
+        throw new Error("Failed to execute script");
+      }
+
+      const data = await response.json();
+      console.log("Backend response:", data);
+
+      setPdfGenerated(true); // Mark PDF as generated
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol>
-          <li>
-            Get started by editing <code>src/app/page.js</code>.
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+    <div
+      style={{
+        backgroundImage: `url('/classroom.jpg')`, // Use the public path here
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        height: "100vh", // Ensure full page height
+      }}
+      className={styles.container}
+    >
+      <h1 className={styles.title}>Assignment Generator</h1>
 
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+      <div className={styles.mainContent}>
+        {/* Images Section */}
+        <div className={styles.imagesSection}>
+          <div className={styles.imageCard}>
             <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
+              src="/image.png"
+              width={250}
+              height={250}
+              alt="Picture of a happy professor holding a gift"
+              className={styles.image}
             />
-            Deploy now
-          </a>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
-          >
-            Read our docs
-          </a>
+            <p>
+              Our model analyzes assignment topics to generate creative tasks.
+              Transform input ideas into structured assignments. Generate
+              personalized PDFs for educational purposes.
+            </p>
+            <br></br>
+            <p>
+              <b>Side note: </b>
+              This version of our project can only retrieve DSC 20 (Data Science
+              20) Assignments.
+            </p>
+          </div>
         </div>
-      </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+
+        {/* Form Section */}
+        <div className={styles.formSection}>
+          <form onSubmit={handleSubmit} className={styles.form}>
+            <textarea
+              className={styles.textarea}
+              value={prompt}
+              onChange={(e) => setPrompt(e.target.value)}
+              placeholder="Enter your topic or idea for an assignment"
+              required
+            />
+            <button type="submit" className={styles.generateButton}>
+              Generate
+            </button>
+          </form>
+
+          {responseMessage && (
+            <div className={styles.response}>
+              <h2>AI-Generated Assignment:</h2>
+              <p>{responseMessage}</p>
+            </div>
+          )}
+
+          {pdfGenerated && (
+            <a
+              href="http://localhost:8000/public/output.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <button className={styles.viewButton}>View Generated PDF</button>
+            </a>
+          )}
+        </div>
+      </div>
     </div>
   );
 }

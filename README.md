@@ -1,6 +1,6 @@
-# RAG Application
+# Assignment Generator
 
-This is a RAG (Retrieval-Augmented Generation) application built using NextJS and NodeJS for the frontend and backend, with Python handling the RAG execution and OpenAI API integration.
+This application is a creative Assignment Generator built using NextJS and NodeJS for the frontend and backend, with Python handling the RAG (Retrieval-Augmented Generation) execution and OpenAI API integration.
 
 ## Prerequisites
 
@@ -34,7 +34,7 @@ Open two terminals and execute the following commands:
 ```bash
 node server.js
 ```
-This starts the backend server.
+This starts the backend server. Ensure the Python path in the `server.js` file is correctly set for your environment (e.g., `/Users/sadrac/miniforge3/bin/python`).
 
 #### Terminal 2:
 ```bash
@@ -48,10 +48,16 @@ Once both servers are running, the application should be available locally. Open
 http://localhost:3000
 ```
 
-## Notes
-- Ensure you have all dependencies installed before starting the application.
-- Make sure the API key is correctly set up in the `sk.py` file.
-- Restart your computer after installing Node.js to avoid any potential issues with the environment setup.
+## Features
+- Generate creative assignment questions using OpenAI.
+- Analyze and rank documents using ColBERT.
+- Export assignments as PDFs.
+- Preloaded with Data Science (DSC 20) assignments for demo purposes.
 
-Enjoy using the RAG application!
+## Notes
+- Ensure the `DSC20 Assignments` folder exists in the `scripts` directory with `.txt` files containing relevant content.
+- Restart your computer after installing Node.js to avoid any potential issues with the environment setup.
+- Modify the Python script paths in `server.js` if necessary to match your system configuration.
+
+Enjoy using the Assignment Generator!
 

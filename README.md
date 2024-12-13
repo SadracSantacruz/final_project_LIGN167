@@ -20,13 +20,24 @@ git clone <repository_url>
 ### 2. Add OpenAI API Key
 Navigate to the `scripts` folder and locate the `sk.py` file. Paste your OpenAI API key into this file to enable the application to communicate with the OpenAI API.
 
-### 3. Install Node.js Dependencies
+### 3. Update Python Script Path in `server.js`
+Locate the following line in `server.js`:
+```javascript
+`${pythonPath} /Users/sadrac/Documents/classes/LIGN167/final_project_LIGN167/final_project/src/scripts/main.py`
+```
+Replace it with the appropriate path on your system to locate the `main.py` file. For example:
+```javascript
+`${pythonPath} <PATH_TO_YOUR_PROJECT>/final_project_LIGN167/final_project/src/scripts/main.py`
+```
+Ensure that `<PATH_TO_YOUR_PROJECT>` is updated to match the actual location of your `main.py` file on your machine.
+
+### 4. Install Node.js Dependencies
 Navigate to the project directory and install the necessary Node.js packages:
 ```bash
 npm install
 ```
 
-### 4. Start the Application
+### 5. Start the Application
 
 Open two terminals and execute the following commands:
 
@@ -34,7 +45,7 @@ Open two terminals and execute the following commands:
 ```bash
 node server.js
 ```
-This starts the backend server. Ensure the Python path in the `server.js` file is correctly set for your environment (e.g., `/Users/sadrac/miniforge3/bin/python`).
+This starts the backend server. Ensure the Python path in the `server.js` file is correctly set for your environment.
 
 #### Terminal 2:
 ```bash
@@ -42,7 +53,7 @@ npm run dev
 ```
 This starts the Next.js development server.
 
-### 5. Access the Application
+### 6. Access the Application
 Once both servers are running, the application should be available locally. Open your browser and navigate to:
 ```
 http://localhost:3000
